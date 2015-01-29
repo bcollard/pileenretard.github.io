@@ -55,7 +55,7 @@
 
 		var force = d3.layout.force()
 		    .size([width, height])
-		    .charge(-200)
+		    .charge(-175)
 		    .linkDistance(90)
 		    .gravity(0.05)
 		    .on("tick", tick);
@@ -93,13 +93,13 @@
 
 		    node.append("circle")
 		      .attr("r", function(d) { return (d.big == undefined || d.big == null) ? 12 : radius(d.big)})
-		      .style("fill", function (d) {
-				    return color(d.group);
-				})
+		      .style("fill", function (d) { return color(d.group); })
+		      .on("mouseover",expandNode)
+        		.on("mouseout",contractNode)
 		      .on("click", dblclick);
 
 		      node.append("text")
-		      .attr("dx", function(d) { return (d.big == undefined || d.big == null) ? 10 : radius(d.big)})
+		      .attr("dx", function(d) { return (d.big == undefined || d.big == null) ? 12 : radius(d.big)})
 		      .attr("dy", ".35em")
 		      .text(function(d) { return d.label });
 
@@ -147,6 +147,44 @@
 		  d3.select(this).classed("fixed", d.fixed = true);
 		}
 
+		// provides node animation for mouseover
+	    function expandNode() {
+	        d3.select(this).transition()
+	            .duration(50)
+	            .style("stroke", function (d) { return LightenDarkenColor(color(d.group), -20); })
+		      .style("stroke-width", 4)
+	            .attr("r",function(d) { return (d.big == undefined || d.big == null) ? 14 : radius(d.big) * 1.1})
+	    };
+	 
+	 
+	    // provides node animation for mouseout
+	    function contractNode(){
+	        d3.select(this).transition()
+	            .duration(200)
+	            .style("stroke", "none")
+		      .style("stroke-width", 0)
+	            .attr("r",function(d) { return (d.big == undefined || d.big == null) ? 12 : radius(d.big)})
+	    };
+
+	    function LightenDarkenColor(col, amt) {
+		    var usePound = false;
+		    if (col[0] == "#") {
+		        col = col.slice(1);
+		        usePound = true;
+		    }
+		    var num = parseInt(col,16);
+		    var r = (num >> 16) + amt;
+		    if (r > 255) r = 255;
+		    else if  (r < 0) r = 0;
+		    var b = ((num >> 8) & 0x00FF) + amt;
+		    if (b > 255) b = 255;
+		    else if  (b < 0) b = 0;
+		    var g = (num & 0x0000FF) + amt;
+		    if (g > 255) g = 255;
+		    else if (g < 0) g = 0;
+		    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
+		}
+
 		/*
 		var body = $("body > #test");
 		var pA = [];
@@ -157,6 +195,11 @@
   			pA.push(p);
 		}
 		body.append(pA);
+
+
+		function circlePath(cx, cy, r){
+		    return 'M '+cx+' '+cy+' m -'+r+', 0 a '+r+','+r+' 0 1,0 '+(r*2)+',0 a '+r+','+r+' 0 1,0 -'+(r*2)+',0';
+		}
 		*/
 	</script>
 

@@ -114,7 +114,7 @@
 		{"name" : "varnish", "group" : "17", "label" : "Varnish"},
 		{"name" : "jmx", "group" : "12", "label" : "JMX"},
 		{"name" : "hawtio", "group" : "12", "label" : "HawtIO"},
-		{"name" : "java", "group" : "12", "label" : "JAVA", "big" : 50, "fixed" : true, "fixedX" : 75, "fixedY" : 65},
+		{"name" : "java", "group" : "12", "label" : "JAVA", "big" : 50, "fixed" : true, "fixedX" : 70, "fixedY" : 55},
 		{"name" : "ant", "group" : "12", "label" : "Ant"},
 		{"name" : "maven", "group" : "12", "label" : "Maven"},
 		{"name" : "plugins", "group" : "12", "label" : "plugins"},
