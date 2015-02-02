@@ -185,7 +185,7 @@
 		    return (usePound?"#":"") + (g | (b << 8) | (r << 16)).toString(16);
 		}
 
-		/*
+		// small color hack
 		var body = $("body > #test");
 		var pA = [];
 		for (var bapt = 0; bapt < 20 ; bapt++) {
@@ -194,11 +194,27 @@
   			p.css("color", color(bapt));
   			pA.push(p);
 		}
-		body.append(pA);
-
+		//body.append(pA);
+/*
 
 		function circlePath(cx, cy, r){
 		    return 'M '+cx+' '+cy+' m -'+r+', 0 a '+r+','+r+' 0 1,0 '+(r*2)+',0 a '+r+','+r+' 0 1,0 -'+(r*2)+',0';
+		}
+
+		function temp(form) {
+		    var cx = parseFloat(form.cx.value, 10);
+		    var cy = parseFloat(form.cy.value, 10);
+		    var rx = parseFloat(form.rx.value, 10);
+		    var ry = parseFloat(form.ry.value, 10);
+		    var r = parseFloat(form.r.value, 10);
+		    if (r > 0) {
+		        rx = r;
+		        ry = r;
+		    }
+		    var output = "M" + (cx - rx).toString() + "," + cy.toString();
+		    output += "a" + rx.toString() + "," + ry.toString() + " 0 1,0 " + (2 * rx).toString() + ",0";
+		    output += "a" + rx.toString() + "," + ry.toString() + " 0 1,0 " + (-2 * rx).toString() + ",0";
+		    form.output.value = output;
 		}
 		*/
 	</script>
